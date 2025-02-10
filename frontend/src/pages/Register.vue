@@ -26,7 +26,10 @@
       placeholder="*********"
       icon="password"
     />
-    <button class="btn-primary w-full mt-6" :disabled="isPending">
+    <button
+      class="btn-primary w-full mt-6 text-sm py-2.5 px-4"
+      :disabled="isPending"
+    >
       {{ isPending ? "Loading..." : "Daftar" }}
     </button>
     <span class="text-center text-xs block mt-3 text-gray-700">

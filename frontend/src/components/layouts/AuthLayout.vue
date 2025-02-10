@@ -8,12 +8,12 @@
   </div>
   <div class="flex items-center h-screen">
     <div
-      class="w-full md:w-2/5 h-full flex items-center justify-center flex-col"
+      class="mx-auto w-full md:w-3/4 lg:w-2/5 h-full flex items-center justify-center flex-col"
     >
       <RouterView />
     </div>
     <div
-      class="relative hidden md:block md:w-3/5 h-full bg-[url('/decoration/pexels-pixabay-159740.jpg')] bg-cover bg-center]"
+      class="relative hidden lg:block lg:w-3/5 h-full bg-[url('/decoration/pexels-pixabay-159740.jpg')] bg-cover bg-center]"
     >
       <div class="absolute right-2 bottom-2 z-10 flex items-center gap-2">
         <img src="/brand/class-smkn-1.png" alt="e-library" class="" />

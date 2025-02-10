@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative h-[800px] md:aspect-video w-full max-h-[600px] overflow-hidden"
+    class="relative h-[900px] md:aspect-video w-full max-h-[600px] overflow-hidden"
   >
     <div class="relative z-0 w-full h-full flex">
       <img
@@ -12,7 +12,9 @@
         class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20"
       ></div>
     </div>
-    <div class="absolute inset-0 flex items-center container">
+    <div
+      class="absolute inset-0 flex items-center justify-center md:justify-start container"
+    >
       <div class="relative z-10 flex flex-col items-center md:items-start">
         <div class="inline-flex items-center gap-2">
           <BadgeCheck class="text-orange-500" />

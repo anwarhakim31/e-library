@@ -5,6 +5,7 @@ import { RegisterDTO } from './dto/register-dto';
 import { Response } from 'express';
 import { User } from 'src/decorators/user.decorator';
 import { AuthGuard } from 'src/guard/authGuard';
+import { LoginDTO } from './dto/login-dto';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -21,16 +22,33 @@ export class AuthController {
       const token = this.JwtService.sign(result, { expiresIn: '1d' });
       response.cookie('access_token', token, {
         maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
         secure: true,
         sameSite: 'none',
       });
     }
     response.json({
       success: true,
-      code: 200,
       data: result,
-      message: 'Berhasil login',
+      message: 'Berhasil mendaftar',
+    });
+  }
+
+  @Post('/login')
+  async login(@Body() LoginDTO: LoginDTO, @Res() response: Response) {
+    const result = await this.authService.login(LoginDTO);
+
+    if (result) {
+      const token = this.JwtService.sign(result, { expiresIn: '1d' });
+      response.cookie('access_token', token, {
+        maxAge: 24 * 60 * 60 * 1000,
+        secure: true,
+        sameSite: 'none',
+      });
+    }
+    response.json({
+      success: true,
+      data: result,
+      message: 'Berhasil masuk',
     });
   }
 
@@ -45,5 +63,16 @@ export class AuthController {
       data: result,
       message: 'Berhasil mengambil data',
     };
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('/logout')
+  async logout(@Res() response: Response) {
+    response.clearCookie('access_token');
+    response.json({
+      success: true,
+      code: 200,
+      message: 'Berhasil logout',
+    });
   }
 }

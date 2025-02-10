@@ -5,18 +5,9 @@
       :for="id"
       class="absolute left-2 -translate-y-1/2 top-1/2 text-sm font-medium inline-block"
     >
-      <Mail
-        v-if="icon === 'email'"
-        class="w-4 h-4 text-gray-700 group-focus-within:text-blue-700"
-      />
-      <KeyRound
-        v-if="icon === 'password'"
-        class="w-4 h-4 text-gray-700 group-focus-within:text-blue-700"
-      />
-      <User
-        v-if="icon === 'name'"
-        class="w-4 h-4 text-gray-700 group-focus-within:text-blue-700"
-      />
+      <Mail v-if="icon === 'email'" class="w-4 h-4 text-gray-700" />
+      <KeyRound v-if="icon === 'password'" class="w-4 h-4 text-gray-700" />
+      <User v-if="icon === 'name'" class="w-4 h-4 text-gray-700" />
     </label>
     <input
       :type="type === 'password' ? (showPassword ? 'text' : 'password') : type"
@@ -27,7 +18,7 @@
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
-      class="w-full pl-8 rounded-md placeholder:text-sm focus:outline-none text-sm focus:ring-blue-800 border border-gray-300 py-2 px-3"
+      class="w-full pl-8 rounded-md placeholder:text-sm text-sm ring-0 focus-within:ring-0 hover:border-blue-600 focus:border-blue-600 focus:outline-2 focus:outline-blue-100 focus:outline-offset-0 border border-gray-300 py-2.5"
       :class="{ 'pl-8': icon, 'pl-3': !icon }"
     />
     <button
@@ -36,14 +27,8 @@
       type="button"
       class="absolute right-2 top-1/2 -translate-y-1/2"
     >
-      <Eye
-        v-if="!showPassword"
-        class="w-4 h-4 text-gray-700 group-focus-within:text-blue-700"
-      />
-      <EyeOff
-        v-else
-        class="w-4 h-4 text-gray-700 group-focus-within:text-blue-700"
-      />
+      <Eye v-if="!showPassword" class="w-4 h-4 text-gray-700" />
+      <EyeOff v-else class="w-4 h-4 text-gray-700" />
     </button>
   </div>
 </template>

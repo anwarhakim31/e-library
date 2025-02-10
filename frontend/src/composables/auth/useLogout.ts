@@ -3,24 +3,18 @@ import { instance } from "../../utils/interceptor";
 import { useRouter } from "vue-router";
 
 import ResponseError from "../../utils/response-error";
-import { useAuthStore } from "../../stores/auth";
 
-const useRegister = () => {
-  const authStore = useAuthStore();
+const useLogout = () => {
   const router = useRouter();
-  return useMutation({
-    mutationFn: async (data: {
-      name: string;
-      email: string;
-      password: string;
-    }) => {
-      const res = await instance.post("/auth/register", data);
 
-      authStore.setUser(res.data);
+  return useMutation({
+    mutationFn: async () => {
+      const res = await instance.post("/auth/logout");
+
       return res;
     },
     onSuccess: () => {
-      router.push("/");
+      router.push("/login");
     },
     onError: (error) => {
       ResponseError(error);
@@ -28,4 +22,4 @@ const useRegister = () => {
   });
 };
 
-export default useRegister;
+export default useLogout;
