@@ -1,17 +1,14 @@
 <template>
   <div
-    class="relative h-[900px] md:aspect-video w-full max-h-[600px] overflow-hidden"
+    class="relative h-[800px] md:aspect-video w-full max-h-[700px] overflow-hidden"
   >
-    <div class="relative z-0 w-full h-full flex">
-      <img
-        src="/decoration/pexels-pixabay-159740.jpg"
-        alt="caoursel1"
-        class="absolute inset-0 w-full h-full object-cover object-center"
-      />
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20"
-      ></div>
-    </div>
+    <div
+      class="absolute bg-[url('/decoration/pexels-pixabay-159740.jpg')] inset-0 w-full h-full bg-cover bg-center"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20"
+    ></div>
+
     <div
       class="absolute inset-0 flex items-center justify-center md:justify-start container"
     >

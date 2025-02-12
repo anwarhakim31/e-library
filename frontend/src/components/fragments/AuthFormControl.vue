@@ -9,18 +9,17 @@
       <KeyRound v-if="icon === 'password'" class="w-4 h-4 text-gray-700" />
       <User v-if="icon === 'name'" class="w-4 h-4 text-gray-700" />
     </label>
+
     <input
       :type="type === 'password' ? (showPassword ? 'text' : 'password') : type"
       :id="id"
       :placeholder="placeholder"
-      :value="modelValue"
+      v-model="fieldValue"
       autocomplete="off"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
       class="w-full pl-8 rounded-md placeholder:text-sm text-sm ring-0 focus-within:ring-0 hover:border-blue-600 focus:border-blue-600 focus:outline-2 focus:outline-blue-100 focus:outline-offset-0 border border-gray-300 py-2.5"
       :class="{ 'pl-8': icon, 'pl-3': !icon }"
     />
+
     <button
       @click="showPassword = !showPassword"
       v-if="type === 'password'"
@@ -31,14 +30,21 @@
       <EyeOff v-else class="w-4 h-4 text-gray-700" />
     </button>
   </div>
+  <p v-if="errorMessage" class="text-red-500 text-xs mt-1">
+    {{ errorMessage }}
+  </p>
 </template>
 
 <script lang="ts" setup>
 import { Eye, EyeOff, KeyRound, Mail, User } from "lucide-vue-next";
 import { ref } from "vue";
+import { useField } from "vee-validate";
 
-defineProps({
-  modelValue: String,
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
   type: {
     type: String,
     default: "text",
@@ -57,9 +63,9 @@ defineProps({
   },
 });
 
-const showPassword = ref(false);
+const { value: fieldValue, errorMessage } = useField(() => props.name);
 
-defineEmits(["update:modelValue"]);
+const showPassword = ref(false);
 </script>
 
 <style scoped></style>

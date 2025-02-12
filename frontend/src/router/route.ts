@@ -6,6 +6,8 @@ import BaseLayout from "../components/layouts/BaseLayout.vue";
 import Register from "../pages/Register.vue";
 import Profile from "../pages/Profile.vue";
 import { useAuthStore } from "../stores/auth";
+import Dashboard from "../pages/admin/dashboard.vue";
+import AdminLayout from "../components/layouts/AdminLayout.vue";
 
 const routes = [
   {
@@ -37,6 +39,13 @@ const routes = [
     name: "profile",
     meta: { layout: BaseLayout, title: "Profil", requiresAuth: true },
     component: Profile,
+  },
+  {
+    path: "/admin/dashboard",
+    name: "dashboard",
+
+    meta: { layout: AdminLayout, title: "Admin", requiresAuth: true },
+    component: Dashboard,
   },
 ];
 

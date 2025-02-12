@@ -21,7 +21,7 @@ export class AuthController {
     if (result) {
       const token = this.JwtService.sign(result, { expiresIn: '1d' });
       response.cookie('access_token', token, {
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 1 * 60 * 60 * 1000,
         secure: true,
         sameSite: 'none',
       });
@@ -40,7 +40,7 @@ export class AuthController {
     if (result) {
       const token = this.JwtService.sign(result, { expiresIn: '1d' });
       response.cookie('access_token', token, {
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 1 * 60 * 60 * 1000,
         secure: true,
         sameSite: 'none',
       });
