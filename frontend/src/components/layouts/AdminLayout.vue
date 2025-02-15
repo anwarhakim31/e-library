@@ -1,24 +1,22 @@
 <template>
   <div class="relative flex min-h-screen items-center">
     <header
-      class="bg-white shadow-sm fixed z-50 top-0 left-0 w-full py-4 pr-4 md:pr-8 border-b flex items-center justify-between duration-300 transition-all ease-in-out"
-      :class="isOpen ? 'pl-4 md:pl-[8.5rem] ' : 'pl-4 md:pl-64'"
+      class="bg-white shadow-sm fixed z-50 top-0 left-0 w-full py-4 pr-4 lg:pr-8 border-b flex items-center justify-between duration-300 transition-all ease-in-out"
+      :class="isOpen ? 'pl-4 lg:pl-[8.5rem] ' : 'pl-4 lg:pl-64'"
     >
       <button
         @click="isOpen = !isOpen"
         id="toggle-sidebar"
         class="flex items-center justify-center shadow-sm w-8 h-8 rounded-full border"
       >
-        <AlignCenter
-          class="w-5 h-5 block md:hidden stroke-[1.5] pointer-events-none"
-        />
+        <AlignCenter class="w-5 h-5 block lg:hidden stroke-[1.5] pointer-events-none" />
         <ChevronsRight
           v-if="isOpen"
-          class="w-5 h-5 hidden md:block stroke-[1.5] pointer-events-none"
+          class="w-5 h-5 hidden lg:block stroke-[1.5] pointer-events-none"
         />
         <ChevronsLeft
           v-else
-          class="w-5 h-5 hidden md:block stroke-[1.5] pointer-events-none"
+          class="w-5 h-5 hidden lg:block stroke-[1.5] pointer-events-none"
         />
       </button>
 
@@ -41,7 +39,7 @@
         />
         <div
           v-else
-          class="w-8 h-8 p-1 flex items-center justify-center rounded-full bg-blue-500"
+          class="w-8 h-8 p-1 flex items-center justify-center rounded-full bg-blue-600"
         >
           <span class="text-sm uppercase text-white">
             {{ ProfileName(user.name) }}
@@ -51,21 +49,21 @@
     </header>
     <aside
       id="sidebar"
-      class="fixed top-0 min-h-screen w-56 shadow-sm bg-white border-r z-50 py-5 px-4 md:px-8 flex flex-col transition-all duration-300 ease-in-out"
-      :class="isOpen ? 'left-0 md:w-[6.25rem]' : ' left-[-100%]  md:left-0'"
+      class="fixed top-0 min-h-screen w-56 shadow-sm bg-white border-r z-50 py-5 px-4 lg:px-8 flex flex-col transition-all duration-300 ease-in-out"
+      :class="isOpen ? 'left-0 lg:w-[6.25rem]' : ' left-[-100%]  lg:left-0'"
       @click.stop
     >
       <img
         src="/brand/eLibrary-letter-2.svg"
         alt="e-library"
         class="h-6"
-        :class="{ 'md:hidden': isOpen }"
+        :class="{ 'lg:hidden': isOpen }"
       />
       <img
         src="/brand/class-smkn-1.png"
         alt="e-library"
         class="h-6 w-7 mx-auto hidden"
-        :class="{ 'md:block': isOpen }"
+        :class="{ 'lg:block': isOpen }"
       />
       <ul class="mt-8 space-y-4">
         <li
@@ -77,44 +75,39 @@
         >
           <RouterLink
             :to="item.path"
-            class="flex items-center gap-2 text-sm p-2 capitalize rounded-md transition-all truncate duration-300 ease-in-out"
+            class="flex items-center text-sm gap-2 p-2 capitalize rounded-lg transition-all truncate duration-300 ease-in-out"
             :class="
-              route.path === item.path
-                ? 'bg-blue-500 text-white hover:bg-blue-500'
+              route.path.startsWith(item.path)
+                ? 'bg-blue-600 text-white hover:bg-blue-600'
                 : 'hover:bg-blue-100 '
             "
-            @click="isOpen = !isOpen"
           >
-            <component
-              :is="item.icon"
-              class="w-5 h-5 stroke-[1.5] flex-shrink-0"
-            />
+            <component :is="item.icon" class="w-5 h-5 stroke-[1.5] flex-shrink-0" />
             {{ item.name }}
           </RouterLink>
           <div
             v-if="isOpen && isHover === item.name"
-            class="hidden md:block before:w-8 before:h-10 before:absolute before:-left-8 before:top-1/2 before:-translate-y-1/2 w-28 before:bg-transparent absolute -right-36 top-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-md text-sm"
+            class="hidden lg:block before:w-8 before:h-10 before:absolute before:-left-8 before:top-1/2 before:-translate-y-1/2 w-28 before:bg-transparent absolute -right-36 top-1/2 -translate-y-1/2 bg-blue-600 text-white rounded-lg text-sm"
           >
-            <routerLink
-              :to="item.path"
-              class="w-28 p-2 block capitalize"
-              @click="isOpen = !isOpen"
-            >
+            <routerLink :to="item.path" class="w-28 p-2 block capitalize">
               {{ item.name }}
             </routerLink>
           </div>
         </li>
       </ul>
       <button
-        class="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full border w-8 h-8 flex items-center justify-center"
+        class="lg:hidden absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full border w-10 h-10 flex items-center justify-center"
         @click="isOpen = !isOpen"
       >
-        <X class="text-gray-500 active:text-gray-400" />
+        <X class="text-gray-800 active:text-gray-400" />
       </button>
     </aside>
-    <main>
+    <section
+      class="w-full min-h-screen pt-24 pr-4 pb-10 lg:pr-8 transition-[width] duration-300 ease-in-out"
+      :class="isOpen ? 'pl-4 lg:pl-[8.5rem] ' : 'pl-4 lg:pl-64'"
+    >
       <RouterView />
-    </main>
+    </section>
   </div>
 </template>
 
@@ -135,7 +128,7 @@ const closeSidebar = (event: MouseEvent) => {
   const sidebar = document.getElementById("sidebar");
   const button = document.getElementById("toggle-sidebar");
   if (
-    window.innerWidth < 768 &&
+    window.innerWidth < 990 &&
     sidebar &&
     !sidebar.contains(event.target as Node) &&
     button &&

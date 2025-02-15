@@ -6,7 +6,7 @@ import { instance } from "../utils/interceptor";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null as null | UserType,
-    loading: true, // Default loading true
+    loading: true,
   }),
 
   actions: {

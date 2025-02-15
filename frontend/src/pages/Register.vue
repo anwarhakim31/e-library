@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import { toTypedSchema } from "@vee-validate/zod";
-import AuthFormControl from "../components/fragments/AuthFormControl.vue";
+import AuthFormControl from "../components/ui/AuthFormControl.vue";
 import useRegister from "../composables/auth/useRegister";
 import { z } from "zod";
 import { useForm } from "vee-validate";

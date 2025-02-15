@@ -4,6 +4,7 @@ import { useRouter, useRoute } from "vue-router";
 
 import ResponseError from "../../utils/response-error";
 import { useAuthStore } from "../../stores/auth";
+import type { UserType } from "../../types/model";
 
 const useLogin = () => {
   const router = useRouter();
@@ -15,10 +16,16 @@ const useLogin = () => {
       const res = await instance.post("/auth/login", data);
 
       authStore.setUser(res.data.data);
-      return res;
+      return res.data;
     },
-    onSuccess: () => {
-      router.push(route.query.callback ? route.query.callback.toString() : "/");
+    onSuccess: (value: { data: UserType }) => {
+      router.push(
+        route.query.callback
+          ? decodeURIComponent(route.query.callback as string)
+          : value.data.isAdmin
+          ? "/admin/dashboard"
+          : "/"
+      );
     },
     onError: (error) => {
       ResponseError(error);

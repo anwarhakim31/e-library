@@ -37,10 +37,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useForm, useField } from "vee-validate";
+import { useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import AuthFormControl from "../components/fragments/AuthFormControl.vue";
+import AuthFormControl from "../components/ui/AuthFormControl.vue";
 import useLogin from "../composables/auth/useLogin";
 
 const schema = toTypedSchema(

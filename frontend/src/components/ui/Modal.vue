@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="#nav-root">
+  <Teleport to="#modal-root">
     <div v-if="isOpen" class="modal-container" @click="handleClose">
       <div
         class="modal-content"
@@ -7,7 +7,6 @@
         @click.stop
       >
         <slot></slot>
-        <button class="close-btn" @click="handleClose">Tutup</button>
       </div>
     </div>
   </Teleport>
@@ -65,7 +64,8 @@ const handleClose = () => {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  width: 400px;
+  width: 100%;
+  max-width: 450px;
   z-index: 100;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   transform: scale(0.8);
