@@ -29,7 +29,7 @@ model Book {
   title         String
   author        String
   isbn          String   @unique
-  category      String
+  description   String
   coverImage    String
   stock         Int      @default(1)
   borrowedCount Int      @default(0)

@@ -2,7 +2,8 @@
   <div class="w-full flex justify-between items-center py-4">
     <p class="text-xs text-gray-700">
       Menampilkan {{ page > totalPage ? 0 : page }} -
-      {{ page === totalPage ? total : page }} dari {{ total }} data
+      {{ Math.min(page * parseInt(limit as string), Number(total)) }} dari
+      {{ total }} data
     </p>
 
     <select
@@ -44,7 +45,7 @@ import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
-const limit = computed(() => route.query.limit);
+const limit = computed(() => route.query.limit || 10);
 
 const setLimit = ref(limit.value || 10);
 
@@ -81,6 +82,7 @@ defineProps({
     type: Number,
     default: 0,
   },
+
   totalPage: {
     type: Number,
     default: 0,

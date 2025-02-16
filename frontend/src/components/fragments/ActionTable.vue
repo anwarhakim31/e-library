@@ -3,8 +3,8 @@
     <div
       :id="`action-${value}`"
       v-if="openAction === value"
-      class="absolute z-50 bg-white border shadow-md rounded-md p-2 min-w-32 flex flex-col"
-      :style="{ top: `${position.y}px`, left: `${position.x - 100}px` }"
+      class="absolute z-50 bg-white border shadow-md rounded-md p-2 min-w-24 flex flex-col"
+      :style="{ top: `${position.y}px`, left: `${position.x - 75}px` }"
     >
       <slot></slot>
     </div>

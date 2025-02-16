@@ -9,7 +9,7 @@ import { useAuthStore } from "../stores/auth";
 import Dashboard from "../pages/admin/Dashboard.vue";
 import AdminLayout from "../components/layouts/AdminLayout.vue";
 import Buku from "../pages/admin/book/Buku.vue";
-import Pengguna from "../pages/admin/Pengguna.vue";
+import Pengguna from "../pages/admin/user/Pengguna.vue";
 import TambahBuku from "../pages/admin/book/TambahBuku.vue";
 import EditBuku from "../pages/admin/book/EditBuku.vue";
 

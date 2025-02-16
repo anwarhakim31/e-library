@@ -1,9 +1,9 @@
 <template>
-  <div class="grid sm:grid-cols-12 mb-4 gap-1 items-center">
-    <label :for="id" class="sm:col-span-2 text-sm font-medium capitalize mb-2 block">{{
+  <div class="mb-4">
+    <label :for="id" class="text-sm font-medium capitalize mb-2 block">{{
       name
     }}</label>
-    <div class="sm:col-span-10 w-full">
+    <div class="w-full">
       <input
         :type="type"
         :id="id"

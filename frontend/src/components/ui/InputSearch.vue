@@ -7,9 +7,7 @@
       :placeholder="placeholder"
       class="text-xs pl-12 placeholder:text-xs rounded-md py-2 w-full"
     />
-    <Search
-      class="absolute w-5 h-5 left-4 top-1/2 text-gray-500 -translate-y-1/2"
-    />
+    <Search class="absolute w-5 h-5 left-4 top-1/2 text-gray-500 -translate-y-1/2" />
   </div>
 </template>
 
@@ -30,6 +28,7 @@ const handleSearch = () => {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
     router.replace({
+      ...route.query,
       query: search.value ? { search: search.value } : {},
     });
   }, 300);

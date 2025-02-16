@@ -1,22 +1,44 @@
 <template>
   <section>
-    <RouterLink to="/admin/buku" class="flex w-fit items-center text-sm mb-4 btn-primary">
+    <RouterLink
+      to="/admin/buku"
+      class="flex w-fit items-center text-sm mb-4 btn-primary"
+    >
       <ChevronLeft class="w-5 h-5" />
       Kembali
     </RouterLink>
     <h1 class="text-xl font-medium mr-auto">Tambah Buku</h1>
     <form class="mt-6 w-full" @submit.prevent="onSubmit">
       <BaseFormControl name="ISBN" type="text" id="isbn" placeholder="ISBN" />
-      <BaseFormControl name="Judul" type="text" id="title" placeholder="Judul" />
-      <BaseFormControl name="Penulis" type="text" id="author" placeholder="Penulis" />
+      <BaseFormControl
+        name="Judul"
+        type="text"
+        id="title"
+        placeholder="Judul"
+      />
+      <BaseFormControl
+        name="Penulis"
+        type="text"
+        id="author"
+        placeholder="Penulis"
+      />
       <ImageFormControl
         @uploading="handleUploading"
         name="Cover Buku"
         id="coverImage"
         placeholder="Gambar"
       />
-      <BaseFormControl name="Stok" type="number" id="stock" placeholder="Stok" />
-      <AreaFormControl name="Deskripsi" id="description" placeholder="Deskripsi" />
+      <BaseFormControl
+        name="Stok"
+        type="number"
+        id="stock"
+        placeholder="Stok"
+      />
+      <AreaFormControl
+        name="Deskripsi"
+        id="description"
+        placeholder="Deskripsi"
+      />
       <button
         :disabled="isUploading || isPending"
         class="btn-primary block ml-auto w-fit mt-6 text-sm py-2.5 px-4"

@@ -1,9 +1,12 @@
 <template>
-  <div class="grid sm:grid-cols-12 mb-4 gap-1 items-start">
-    <label :for="id" class="sm:col-span-2 text-sm font-medium capitalize mb-2 block">
+  <div class="mb-4">
+    <label
+      :for="id"
+      class="sm:col-span-2 text-sm font-medium capitalize mb-2 block"
+    >
       {{ name }}
     </label>
-    <div class="sm:col-span-10 w-full">
+    <div class="w-full">
       <div
         class="flex justify-center h-44 rounded-md w-full placeholder:text-sm text-sm ring-0 focus-within:ring-0 bg-gray-50 hover:border-blue-600 focus:border-blue-600 focus:outline-2 focus:outline-blue-100 focus:outline-offset-0 border border-gray-300 px-2.5 py-2.5"
       >
@@ -32,13 +35,24 @@
           class="flex flex-col items-center w-full h-full cursor-pointer justify-center"
           @click="triggerFileInput"
         >
-          <img :src="imagePreview || ''" class="w-24 max-h-24 rounded-md" alt="Gambar" />
-          <button @click.stop type="button" class="mt-2" @click="imagePreview = null">
+          <img
+            :src="imagePreview || ''"
+            class="w-24 max-h-24 rounded-md"
+            alt="Gambar"
+          />
+          <button
+            @click.stop
+            type="button"
+            class="mt-2"
+            @click="imagePreview = null"
+          >
             <X class="text-gray-800 active:text-gray-400 w-4 h-4" />
           </button>
         </div>
       </div>
-      <span class="text-xs text-red-500 sm:col-span-10">{{ errorMessage }}</span>
+      <span class="text-xs text-red-500 sm:col-span-10">{{
+        errorMessage
+      }}</span>
     </div>
   </div>
 
@@ -67,10 +81,14 @@ const props = defineProps({
 });
 
 const imageInput = ref<HTMLInputElement | null>(null);
-const { value: fieldValue, errorMessage } = useField<string | File>(() => props.id);
+const { value: fieldValue, errorMessage } = useField<string | File>(
+  () => props.id
+);
 const setProggress = ref(0);
 const imagePreview = ref<string | null>(null);
-const { mutate, isPending } = usePostImage((value) => (setProggress.value = value));
+const { mutate, isPending } = usePostImage(
+  (value) => (setProggress.value = value)
+);
 
 const emit = defineEmits(["uploading"]);
 

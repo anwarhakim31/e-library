@@ -5,9 +5,11 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
+import { BookModule } from './book/book.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [AuthModule, CommonModule],
+  imports: [AuthModule, CommonModule, BookModule, UserModule],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
 })

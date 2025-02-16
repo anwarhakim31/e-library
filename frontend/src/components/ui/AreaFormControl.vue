@@ -1,9 +1,11 @@
 <template>
-  <div class="grid sm:grid-cols-12 mb-4 gap-1 items-start">
-    <label :for="id" class="sm:col-span-2 text-sm font-medium capitalize mb-2 block">{{
-      name
-    }}</label>
-    <div class="sm:col-span-10 w-full">
+  <div class="w-full">
+    <label
+      :for="id"
+      class="sm:col-span-2 text-sm font-medium capitalize mb-2 block"
+      >{{ name }}</label
+    >
+    <div class="w-full">
       <textarea
         :id="id"
         :placeholder="placeholder"

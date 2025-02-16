@@ -1,8 +1,11 @@
 export interface UserType {
-  name: string;
-  email: string;
+  id?: string;
+  name?: string;
+  email?: string;
   photo?: string;
-  isAdmin: boolean;
+  gender?: string;
+  password?: string;
+  isAdmin?: boolean;
 }
 
 export interface BookType {
