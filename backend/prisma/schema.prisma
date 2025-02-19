@@ -40,12 +40,16 @@ model Book {
 }
 
 model Booking {
-  id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id])
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id] ,onDelete: Cascade)
   userId     String
-  book       Book     @relation(fields: [bookId], references: [id])
+  book       Book     @relation(fields: [bookId], references: [id],onDelete: Cascade)
+  note String
   bookId     String
-  bookingDate DateTime @default(now()) 
-  returnDate DateTime?
-  status     String   @default("pending") // "pending" | "approved" | "rejected" | "borrowed" | "returned"
+  startDate DateTime
+  endDate DateTime
+  confirmedAt DateTime?  
+  returnedAt  DateTime?
+   
+  status     String   @default("pending")
 }

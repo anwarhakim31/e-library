@@ -19,7 +19,10 @@
         >
           <Trash class="w-4 h-4" />
         </button>
-        <RouterLink to="/admin/buku/tambah" class="btn-primary flex-shrink-0 text-sm">
+        <RouterLink
+          to="/admin/buku/tambah"
+          class="btn-primary flex-shrink-0 text-sm"
+        >
           Tambah Buku
         </RouterLink>
       </div>
@@ -36,17 +39,30 @@
                 type="checkbox"
                 class="w-4 h-4 mx-auto text-blue-600 bg-gray-100 border-white rounded-sm focus:ring-blue-500"
                 :checked="
-                  selected.length === data?.data?.length && data?.data?.length > 0
+                  selected.length === data?.data?.length &&
+                  data?.data?.length > 0
                 "
                 @change="toggleselected"
               />
             </th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">ISBN</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Cover</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Judul</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Penulis</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Stok</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Deskripsi</th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              ISBN
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Cover
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Judul
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Penulis
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Stok
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Deskripsi
+            </th>
             <th class="sr-only w-8 ml-auto">Aksi</th>
           </tr>
         </thead>
@@ -67,7 +83,11 @@
             </td>
             <td class="px-4 py-2 text-sm truncate">{{ user.isbn }}</td>
             <td class="px-4 py-2 text-sm truncate">
-              <img :src="user.coverImage" class="w-auto h-8" :alt="user.title" />
+              <img
+                :src="user.coverImage"
+                class="w-auto h-8"
+                :alt="user.title"
+              />
             </td>
             <td class="px-4 py-2 text-sm truncate">{{ user.title }}</td>
             <td class="px-4 py-2 text-sm truncate">{{ user.author }}</td>
@@ -136,7 +156,8 @@ watchEffect(() => {
 
 const toggleselected = (event: Event) => {
   if ((event.target as HTMLInputElement).checked) {
-    selected.value = data.value?.data.map((item: BookType) => item.id) || [];
+    selected.value =
+      data.value?.data.book.map((item: BookType) => item.id) || [];
   } else {
     selected.value = [];
   }

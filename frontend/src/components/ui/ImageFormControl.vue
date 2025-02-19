@@ -37,7 +37,7 @@
         >
           <img
             :src="imagePreview || ''"
-            class="w-24 max-h-24 rounded-md"
+            class="object-contain max-h-32"
             alt="Gambar"
           />
           <button

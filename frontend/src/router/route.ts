@@ -12,6 +12,9 @@ import Buku from "../pages/admin/book/Buku.vue";
 import Pengguna from "../pages/admin/user/Pengguna.vue";
 import TambahBuku from "../pages/admin/book/TambahBuku.vue";
 import EditBuku from "../pages/admin/book/EditBuku.vue";
+import Perpustakaan from "../pages/Perpustakaan.vue";
+import DetailBuku from "../pages/DetailBuku.vue";
+import PinjamBuku from "../pages/PinjamBuku.vue";
 
 const routes = [
   {
@@ -19,6 +22,24 @@ const routes = [
     name: "home",
     meta: { layout: BaseLayout, title: "Beranda" },
     component: Home,
+  },
+  {
+    path: "/buku/:id",
+    name: "DetailBuku",
+    meta: { layout: BaseLayout, title: "Detail" },
+    component: DetailBuku,
+  },
+  {
+    path: "/buku/:id/pinjam",
+    name: "Pinjam Buku",
+    meta: { layout: BaseLayout, title: "Pinjam", requiresAuth: true },
+    component: PinjamBuku,
+  },
+  {
+    path: "/perpustakaan",
+    name: "perpustakaan",
+    meta: { layout: BaseLayout, title: "Perpustakaan" },
+    component: Perpustakaan,
   },
   {
     path: "/login",
@@ -99,7 +120,7 @@ router.beforeEach(async (to, from, next) => {
   const admin = authStore.admin;
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    return next("/login?callback=" + encodeURI(to.path));
+    return next("/login?callback=" + encodeURIComponent(to.path));
   }
 
   if (authPage.includes(to.path) && isAuthenticated) {
@@ -107,7 +128,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.path.startsWith("/admin") && !admin) {
-    return next("/login?callback=" + decodeURI(to.path));
+    return next("/login?callback=" + encodeURIComponent(to.path));
   }
 
   document.title = `${to.meta.title} | E-Library`;

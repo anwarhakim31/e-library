@@ -53,6 +53,9 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-if="data?.data?.user.length === 0">
+            <td colspan="100%" class="text-center text-sm py-4">No Data.</td>
+          </tr>
           <tr
             v-if="!isLoading && data?.data?.user?.length > 0"
             class="border-b"

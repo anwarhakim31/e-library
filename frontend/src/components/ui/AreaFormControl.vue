@@ -11,7 +11,8 @@
         :placeholder="placeholder"
         v-model="fieldValue"
         autocomplete="off"
-        class="block resize-none rounded-md h-32 w-full placeholder:text-sm text-sm ring-0 focus-within:ring-0 bg-gray-50 hover:border-blue-600 focus:border-blue-600 focus:outline-2 focus:outline-blue-100 focus:outline-offset-0 border border-gray-300 px-2.5 py-2.5"
+        :class="style ? style : 'bg-gray-50'"
+        class="block resize-none rounded-md h-32 w-full placeholder:text-sm text-sm ring-0 focus-within:ring-0 hover:border-blue-600 focus:border-blue-600 focus:outline-2 focus:outline-blue-100 focus:outline-offset-0 border border-gray-300 px-2.5 py-2.5"
       />
       <span class="text-xs text-red-500">{{ errorMessage }}</span>
     </div>
@@ -26,7 +27,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
-
+  style: {
+    type: String,
+    default: "",
+  },
   id: {
     type: String,
     required: true,

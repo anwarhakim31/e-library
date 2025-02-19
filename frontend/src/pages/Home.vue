@@ -29,12 +29,16 @@
             type="text"
             class="pl-10 pr-20 text-sm py-4 rounded-md bg-white w-[300px]"
             placeholder="Temukan Bacaanmu..."
+            v-model="search"
           />
           <Search
             class="absolute w-5 h-5 left-4 top-1/2 text-gray-700 -translate-y-1/2"
             stroke-width="1.5"
           />
-          <button class="btn-primary absolute right-2 top-1/2 -translate-y-1/2">
+          <button
+            @click="handleClick"
+            class="btn-primary absolute right-2 top-1/2 -translate-y-1/2"
+          >
             Cari
           </button>
         </div>
@@ -62,8 +66,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { BadgeCheck, Check, Search } from "lucide-vue-next";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const search = ref("");
+
+const handleClick = () => {
+  if (search.value) {
+    router.push({ query: { search: search.value }, path: "/perpustakaan" });
+  }
+};
 </script>
 
 <style></style>
