@@ -104,6 +104,20 @@ export class UserService {
   }
 
   async editProfile(id: string, request: UserPutDto) {
+    if (request.password) {
+      const salt = await bcrypt.genSalt();
+      request.password = await bcrypt.hash(request.password, salt);
+
+      await this.prismaService.user.update({
+        where: {
+          id: id,
+        },
+        data: {
+          password: request.password,
+        },
+      });
+    }
+
     const user = await this.prismaService.user.update({
       where: {
         id: id,

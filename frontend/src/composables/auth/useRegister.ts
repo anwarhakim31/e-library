@@ -15,8 +15,7 @@ const useRegister = () => {
       password: string;
     }) => {
       const res = await instance.post("/auth/register", data);
-
-      authStore.setUser(res.data);
+      authStore.setUser(res.data.data);
       return res;
     },
     onSuccess: () => {

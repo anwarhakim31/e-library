@@ -27,7 +27,7 @@
       </button>
       <p class="text-xs">{{ page }}</p>
       <button
-        :disabled="page === totalPage"
+        :disabled="page === totalPage || totalPage === 0"
         @click="handleNext('next')"
         class="bg-gray-50 border w-fit p-1.5 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed border-gray-500 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
       >
@@ -63,7 +63,8 @@ const handleChange = (e: Event) => {
 
 const handleNext = (pos: string) => {
   const post = pos === "prev" ? -1 : 1;
-  const page = typeof route.query.page === "string" ? parseInt(route.query.page) : 1;
+  const page =
+    typeof route.query.page === "string" ? parseInt(route.query.page) : 1;
 
   router.push({
     query: {

@@ -72,12 +72,16 @@ const router = useRouter();
 
 const { data, error, isLoading } = useGetOneBook();
 
-watch([isLoading, data], async () => {
-  if (!isLoading.value && data.value) {
-    await nextTick();
-    form.setValues(data.value.data);
-  }
-});
+watch(
+  [isLoading, data],
+  async () => {
+    if (!isLoading.value && data.value) {
+      await nextTick();
+      form.setValues(data.value.data);
+    }
+  },
+  { immediate: true }
+);
 
 watch(error, () => {
   if (error.value) {

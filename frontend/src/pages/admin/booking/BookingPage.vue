@@ -1,13 +1,15 @@
 <template>
   <section>
-    <h1 class="text-xl font-medium mr-auto">Kelola Buku</h1>
-    <p class="text-gray-700 text-sm mt-1 mb-4">kelola data buku perpustakaan</p>
+    <h1 class="text-xl font-medium mr-auto">Kelola Booking</h1>
+    <p class="text-gray-700 text-sm mt-1 mb-4">
+      kelola data booking perpustakaan
+    </p>
     <div class="w-full flex justify-between items-center flex-wrap gap-4 mb-4">
       <h3 class="text-sm font-medium">
-        Total buku ({{ data?.data?.pagination?.total || 0 }})
+        Total Booking ({{ data?.data?.pagination?.total || 0 }})
       </h3>
       <div class="flex items-center gap-2 w-full md:w-fit">
-        <InputSearch placeholder="Cari Pengguna" />
+        <InputSearch placeholder="Cari Pengguna atau Buku" />
         <button
           @click="
             () => {
@@ -19,9 +21,6 @@
         >
           <Trash class="w-4 h-4" />
         </button>
-        <RouterLink to="/admin/buku/tambah" class="btn-primary flex-shrink-0 text-sm">
-          Tambah Buku
-        </RouterLink>
       </div>
     </div>
     <div
@@ -36,66 +35,83 @@
                 type="checkbox"
                 class="w-4 h-4 mx-auto text-blue-600 bg-gray-100 border-white rounded-sm focus:ring-blue-500"
                 :checked="
-                  selected.length === data?.data?.length && data?.data?.length > 0
+                  selected.length === data?.data?.booking?.length &&
+                  data?.data?.booking?.length > 0
                 "
                 @change="toggleselected"
               />
             </th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">ISBN</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Cover</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Judul</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Penulis</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Stok</th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">Deskripsi</th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Pengguna
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Buku
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Mulai
+            </th>
+            <th class="text-left px-4 py-2 text-sm font-medium truncate">
+              Selesai
+            </th>
+
             <th class="sr-only w-8 ml-auto">Aksi</th>
           </tr>
         </thead>
         <tbody>
+          <tr v-if="data?.data?.booking.length === 0">
+            <td colspan="100%" class="text-center text-sm py-4">No Data.</td>
+          </tr>
           <tr
-            v-if="!isLoading && data?.data?.book?.length > 0"
+            v-if="!isLoading && data?.data?.booking?.length > 0"
             class="border-b"
-            v-for="user in data.data.book"
-            :key="user.id"
+            v-for="booking in data.data.booking"
+            :key="booking.id"
           >
             <td class="w-10">
               <input
-                :checked="selected.includes(user.id)"
-                @change="toggleSelect(user.id)"
+                :checked="selected.includes(booking.id)"
+                @change="toggleSelect(booking.id)"
                 type="checkbox"
                 class="w-4 h-4 block mx-auto text-blue-600 bg-gray-100 border-blue-600 rounded-sm focus:ring-blue-500"
               />
             </td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.isbn }}</td>
             <td class="px-4 py-2 text-sm truncate">
-              <img :src="user.coverImage" class="w-auto h-8" :alt="user.title" />
+              {{ booking?.user?.name }}
             </td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.title }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.author }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.stock }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.description }}</td>
+
+            <td class="px-4 py-2 text-sm truncate">
+              {{ booking?.book?.title }}
+            </td>
+            <td class="px-4 py-2 text-sm truncate">
+              {{ booking?.startDate.split("T")[0] }}
+            </td>
+            <td class="px-4 py-2 text-sm truncate">
+              {{ booking?.endDate.split("T")[0] }}
+            </td>
+
             <td class="px-4 text-sm relative">
               <button
-                :id="user.id"
-                @click="openAction = openAction === user.id ? '' : user.id"
+                :id="booking?.id || ''"
+                @click="
+                  openAction =
+                    openAction === booking.id ? '' : booking?.id || ''
+                "
               >
                 <EllipsisVertical class="w-5 h-10 text-gray-500" />
               </button>
               <ActionTable
-                :value="user.id"
+                :value="booking?.id || '1'"
                 :openAction="openAction"
                 @update="openAction = ''"
               >
-                <RouterLink
-                  :to="`/admin/buku/edit/${user.id}`"
+                <button
+                  @click="handleOpenConfirm(booking?.id || '')"
                   class="px-2 py-1 text-sm truncate w-full"
                 >
-                  Edit
-                </RouterLink>
+                  Konfirmasi
+                </button>
               </ActionTable>
             </td>
-          </tr>
-          <tr v-if="!isLoading && data?.data?.book?.length === 0">
-            <td colspan="100%" class="text-center text-sm py-4">No Data.</td>
           </tr>
         </tbody>
       </table>
@@ -106,9 +122,14 @@
       :total-page="data?.data?.pagination.totalPage"
     />
   </section>
+  <ModalConfirmBooking
+    @confirm="handleConfirm"
+    :isOpen="!!openConfirm"
+    @close="openConfirm = null"
+  />
   <ModalDelete
     @confirm="handleDelete"
-    :title="'buku'"
+    :title="'booking'"
     :isOpen="openDelete"
     @close="openDelete = false"
   />
@@ -119,23 +140,28 @@ import { ref } from "vue";
 import { EllipsisVertical, Trash } from "lucide-vue-next";
 import InputSearch from "../../../components/ui/InputSearch.vue";
 import ActionTable from "../../../components/fragments/ActionTable.vue";
-import { RouterLink } from "vue-router";
-import useGetBook from "../../../composables/book/useGetAllBook";
-import type { BookType } from "../../../types/model";
+import { type BookType } from "../../../types/model";
 import ModalDelete from "../../../components/fragments/ModalDelete.vue";
-import useDeleteBook from "../../../composables/book/useDeleteBook";
 import FooterTable from "../../../components/fragments/FooterTable.vue";
+import useGetPendingBooking from "../../../composables/booking/useGetPendingBooking";
+import useConfirmBooking from "../../../composables/booking/useConfirmBooking";
+import ModalConfirmBooking from "./ModalConfirmBooking.vue";
+import useDeleteBooking from "../../../composables/booking/useDeleteBooking";
 
 const selected = ref<string[]>([]);
 const openDelete = ref(false);
+const openConfirm = ref<null | string>(null);
+
 const openAction = ref("");
 
-const { data, isLoading } = useGetBook();
-const { mutate } = useDeleteBook();
+const { data, isLoading } = useGetPendingBooking();
+const { mutate: mutateConfirm } = useConfirmBooking();
+const { mutate } = useDeleteBooking();
 
 const toggleselected = (event: Event) => {
   if ((event.target as HTMLInputElement).checked) {
-    selected.value = data.value?.data.book.map((item: BookType) => item.id) || [];
+    selected.value =
+      data.value?.data?.booking?.map((item: BookType) => item.id) || [];
   } else {
     selected.value = [];
   }
@@ -154,6 +180,19 @@ const handleDelete = () => {
     onSuccess: () => {
       selected.value = [];
       openDelete.value = false;
+    },
+  });
+};
+
+const handleOpenConfirm = (id: string) => {
+  openConfirm.value = id;
+  openAction.value = "";
+};
+
+const handleConfirm = () => {
+  mutateConfirm(openConfirm.value as string, {
+    onSuccess: () => {
+      openConfirm.value = null;
     },
   });
 };

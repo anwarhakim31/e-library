@@ -2,7 +2,9 @@
   <section class="container my-10">
     <div v-if="isPending" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="col-span-1 px-24 lg:px-32">
-        <div class="relative w-full aspect-[2/3] bg-gray-200 animate-pulse"></div>
+        <div
+          class="relative w-full aspect-[2/3] bg-gray-200 animate-pulse"
+        ></div>
       </div>
       <div class="py-2 col-span-1">
         <h1
@@ -10,7 +12,9 @@
         >
           sadasdasdas
         </h1>
-        <h3 class="text-sm mt-2 line-clamp-2 text-transparent bg-gray-200 animate-pulse">
+        <h3
+          class="text-sm mt-2 line-clamp-2 text-transparent bg-gray-200 animate-pulse"
+        >
           ssdsdsds
         </h3>
         <p class="text-sm bg-gray-200 animate-pulse mt-10 text-transparent">
@@ -31,7 +35,9 @@
               class="w-[100px] inline-block text-sm bg-gray-200 animate-pulse text-transparent"
               >status</span
             >
-            <p class="text-sm bg-gray-200 animate-pulse text-transparent">sdasdas</p>
+            <p class="text-sm bg-gray-200 animate-pulse text-transparent">
+              sdasdas
+            </p>
           </div>
 
           <div class="flex gap-2 items-center mt-4">
@@ -39,7 +45,9 @@
               class="w-[100px] inline-block text-sm bg-gray-200 animate-pulse text-transparent"
               >status</span
             >
-            <p class="text-sm bg-gray-200 animate-pulse text-transparent">sdasdas</p>
+            <p class="text-sm bg-gray-200 animate-pulse text-transparent">
+              sdasdas
+            </p>
           </div>
         </div>
         <button
@@ -81,12 +89,11 @@
           <li class="text-sm font-light">
             1. Buku harus dikembalikan sesuai tanggal jatuh tempo
           </li>
-          <li class="text-sm font-light">2. Denda keterlambatan Rp 2.000 per hari</li>
           <li class="text-sm font-light">
-            3. Pengguna bertanggung jawab atas kerusakan atau kehilangan buku
+            2. Denda keterlambatan Rp 2.000 per hari
           </li>
           <li class="text-sm font-light">
-            4. Peminjaman dapat diperpanjang maksimal 1 kali
+            3. Pengguna bertanggung jawab atas kerusakan atau kehilangan buku
           </li>
         </ul>
 
@@ -100,7 +107,10 @@
             :class="{ 'border-red-500': errorTerm }"
             class="mr-2 border-blue-500"
           />
-          <label for="terms" class="text-sm" :class="{ 'text-red-500': errorTerm }"
+          <label
+            for="terms"
+            class="text-sm"
+            :class="{ 'text-red-500': errorTerm }"
             >Saya setuju dengan persyaratan peminjaman buku</label
           >
         </div>
@@ -126,15 +136,20 @@
           <p className="text-blue-800 font-medium mb-2 text-center block">
             Langkah selanjutnya:
           </p>
-          <ol className="list-disc text-blue-700 text-sm space-y-2 text-left">
-            <li class="text-sm">Menunggu konfirmasi petugas perpustakaan (1x24 jam)</li>
+          <ol className="list-disc text-blue- 700 text-sm space-y-2 text-left">
+            <li class="text-sm">
+              Menunggu konfirmasi petugas perpustakaan (1x24 jam)
+            </li>
             <li class="text-sm">
               Setelah dikonfirmasi, buku dapat diambil di perpustakaan
             </li>
             <li class="text-sm">Tunjukkan kartu identitas saat pengambilan</li>
           </ol>
         </div>
-        <button @click="showModal = false" class="btn-primary w-full mt-4 text-sm py-3">
+        <button
+          @click="showModal = false"
+          class="btn-primary w-full mt-4 text-sm py-3"
+        >
           Mengerti
         </button>
       </div></Modal

@@ -80,16 +80,13 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Patch('/profile')
   async editProfile(@Body() request: UserPutDto, @User() user: { id: string }) {
-    return this.userService.editProfile(user.id, request);
-  }
+    const res = await this.userService.editProfile(user.id, request);
 
-  @HttpCode(200)
-  @UseGuards(AuthGuard)
-  @Patch('/password')
-  async changePassword(
-    @Body() request: { password: string; newPassword: string },
-    @User() user: { username: string },
-  ) {
-    return this.userService.changePassword(user.username, request);
+    return {
+      success: true,
+      code: 200,
+      data: res,
+      message: 'Berhasil mengubah profile',
+    };
   }
 }

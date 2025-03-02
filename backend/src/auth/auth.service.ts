@@ -87,6 +87,7 @@ export class AuthService {
         email: true,
         photo: true,
         isAdmin: true,
+        gender: true,
       },
     });
 

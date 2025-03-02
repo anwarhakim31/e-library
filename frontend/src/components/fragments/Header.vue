@@ -33,7 +33,7 @@
         </nav>
       </div>
       <div class="flex items-center gap-2">
-        <RouterLink v-if="user && !loading" to="/profile">
+        <RouterLink v-if="user && !loading" to="/profile/booking">
           <img
             v-if="user.photo"
             class="w-8 h-8 p-1 rounded-full ring-2"
@@ -49,11 +49,7 @@
             </span>
           </div>
         </RouterLink>
-        <RouterLink
-          v-if="!user && !loading"
-          to="/login"
-          class="btn-primary text-xs"
-        >
+        <RouterLink v-if="!user && !loading" to="/login" class="btn-primary text-xs">
           Masuk
         </RouterLink>
         <button class="block md:hidden" @click="openModal">

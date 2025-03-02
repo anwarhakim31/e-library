@@ -6,10 +6,10 @@ import ResponseError from "../../utils/response-error";
 import type { UserType } from "../../types/model";
 import { toast } from "vue-sonner";
 
-const usePutUser = () => {
+const useEditProfile = () => {
   return useMutation({
     mutationFn: async (data: UserType) => {
-      const res = await instance.put("/user/" + data.id, {
+      const res = await instance.patch("/user/profile", {
         name: data.name,
         email: data.email,
         photo: data.photo,
@@ -20,7 +20,7 @@ const usePutUser = () => {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Berhasil mengedit user");
+      toast.success("Berhasil mengubah profile");
     },
     onError: (error) => {
       ResponseError(error);
@@ -28,4 +28,4 @@ const usePutUser = () => {
   });
 };
 
-export default usePutUser;
+export default useEditProfile;

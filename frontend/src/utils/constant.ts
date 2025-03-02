@@ -27,14 +27,14 @@ export const sidebarItem = [
   },
   {
     id: 4,
-    name: "peminjaman",
-    icon: CalendarClock,
-    path: "/admin/peminjaman",
-  },
-  {
-    id: 5,
     name: "booking",
     icon: ArrowRightLeft,
     path: "/admin/booking",
+  },
+  {
+    id: 5,
+    name: "peminjaman",
+    icon: CalendarClock,
+    path: "/admin/peminjaman",
   },
 ];

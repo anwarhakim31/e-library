@@ -9,7 +9,9 @@
         id="toggle-sidebar"
         class="flex items-center justify-center shadow-sm w-8 h-8 rounded-full border"
       >
-        <AlignCenter class="w-5 h-5 block lg:hidden stroke-[1.5] pointer-events-none" />
+        <AlignCenter
+          class="w-5 h-5 block lg:hidden stroke-[1.5] pointer-events-none"
+        />
         <ChevronsRight
           v-if="isOpen"
           class="w-5 h-5 hidden lg:block stroke-[1.5] pointer-events-none"
@@ -42,7 +44,7 @@
           class="w-8 h-8 p-1 flex items-center justify-center rounded-full bg-blue-600"
         >
           <span class="text-sm uppercase text-white">
-            {{ ProfileName(user.name) }}
+            {{ ProfileName(user?.name || "") }}
           </span>
         </div>
       </RouterLink>
@@ -82,7 +84,10 @@
                 : 'hover:bg-blue-100 '
             "
           >
-            <component :is="item.icon" class="w-5 h-5 stroke-[1.5] flex-shrink-0" />
+            <component
+              :is="item.icon"
+              class="w-5 h-5 stroke-[1.5] flex-shrink-0"
+            />
             {{ item.name }}
           </RouterLink>
           <div

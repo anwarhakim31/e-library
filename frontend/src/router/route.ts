@@ -4,7 +4,6 @@ import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
 import BaseLayout from "../components/layouts/BaseLayout.vue";
 import Register from "../pages/Register.vue";
-import Profile from "../pages/Profile.vue";
 import { useAuthStore } from "../stores/auth";
 import Dashboard from "../pages/admin/Dashboard.vue";
 import AdminLayout from "../components/layouts/AdminLayout.vue";
@@ -15,6 +14,11 @@ import EditBuku from "../pages/admin/book/EditBuku.vue";
 import Perpustakaan from "../pages/Perpustakaan.vue";
 import DetailBuku from "../pages/DetailBuku.vue";
 import PinjamBuku from "../pages/PinjamBuku.vue";
+import ProfileLayout from "../components/layouts/ProfileLayout.vue";
+import ProfileSetting from "../pages/profile/ProfileSetting.vue";
+
+import ProfileBooking from "../pages/profile/ProfileBooking.vue";
+import BookingPage from "../pages/admin/booking/BookingPage.vue";
 
 const routes = [
   {
@@ -53,18 +57,20 @@ const routes = [
     meta: { layout: AuthLayout, title: "Daftar" },
     component: Register,
   },
+
   {
-    path: "/profile",
-    name: "profile",
-    meta: { layout: BaseLayout, title: "Profil", requiresAuth: true },
-    component: Profile,
+    path: "/profile/booking",
+    name: "profile borrowed",
+    meta: { layout: ProfileLayout, title: "Profil", requiresAuth: true },
+    component: ProfileBooking,
   },
   {
-    path: "/profile",
-    name: "profile",
-    meta: { layout: BaseLayout, title: "Profil", requiresAuth: true },
-    component: Profile,
+    path: "/profile/setting",
+    name: "profile setting",
+    meta: { layout: ProfileLayout, title: "Profil", requiresAuth: true },
+    component: ProfileSetting,
   },
+
   //admin
   {
     path: "/admin/dashboard",
@@ -101,6 +107,12 @@ const routes = [
     name: "editbuku",
     meta: { layout: AdminLayout, title: "Edit buku", requiresAuth: true },
     component: EditBuku,
+  },
+  {
+    path: "/admin/booking",
+    name: "admin booking",
+    meta: { layout: AdminLayout, title: "Admin booking", requiresAuth: true },
+    component: BookingPage,
   },
 ];
 
