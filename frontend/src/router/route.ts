@@ -19,6 +19,7 @@ import ProfileSetting from "../pages/profile/ProfileSetting.vue";
 
 import ProfileBooking from "../pages/profile/ProfileBooking.vue";
 import BookingPage from "../pages/admin/booking/BookingPage.vue";
+import BorrowPage from "../pages/admin/borrow/BorrowPage.vue";
 
 const routes = [
   {
@@ -113,6 +114,16 @@ const routes = [
     name: "admin booking",
     meta: { layout: AdminLayout, title: "Admin booking", requiresAuth: true },
     component: BookingPage,
+  },
+  {
+    path: "/admin/borrowed",
+    name: "admin borrowed",
+    meta: {
+      layout: AdminLayout,
+      title: "Admin Peminjaman",
+      requiresAuth: true,
+    },
+    component: BorrowPage,
   },
 ];
 

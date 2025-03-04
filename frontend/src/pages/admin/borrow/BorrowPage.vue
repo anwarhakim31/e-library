@@ -1,13 +1,15 @@
 <template>
   <section>
-    <h1 class="text-xl font-medium mr-auto">Kelola Buku</h1>
-    <p class="text-gray-700 text-sm mt-1 mb-4">kelola data buku perpustakaan</p>
+    <h1 class="text-xl font-medium mr-auto">Kelola Peminjaman</h1>
+    <p class="text-gray-700 text-sm mt-1 mb-4">
+      kelola data peminjaman perpustakaan
+    </p>
     <div class="w-full flex justify-between items-center flex-wrap gap-4 mb-4">
       <h3 class="text-sm font-medium">
-        Total buku ({{ data?.data?.pagination?.total || 0 }})
+        Total Peminjaman ({{ data?.data?.pagination?.total || 0 }})
       </h3>
       <div class="flex items-center gap-2 w-full md:w-fit">
-        <InputSearch placeholder="Cari Buku" />
+        <InputSearch placeholder="Cari Pengguna atau Buku" />
         <button
           @click="
             () => {
@@ -19,12 +21,6 @@
         >
           <Trash class="w-4 h-4" />
         </button>
-        <RouterLink
-          to="/admin/buku/tambah"
-          class="btn-primary flex-shrink-0 text-sm"
-        >
-          Tambah Buku
-        </RouterLink>
       </div>
     </div>
     <div
@@ -39,83 +35,88 @@
                 type="checkbox"
                 class="w-4 h-4 mx-auto text-blue-600 bg-gray-100 border-white rounded-sm focus:ring-blue-500"
                 :checked="
-                  selected.length === data?.data?.length &&
-                  data?.data?.length > 0
+                  selected.length === data?.data?.booking?.length &&
+                  data?.data?.booking?.length > 0
                 "
                 @change="toggleselected"
               />
             </th>
             <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              ISBN
+              Pengguna
             </th>
             <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              Cover
+              Buku
             </th>
             <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              Judul
+              Status
             </th>
             <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              Penulis
+              Mulai
             </th>
             <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              Stok
+              Selesai
             </th>
-            <th class="text-left px-4 py-2 text-sm font-medium truncate">
-              Deskripsi
-            </th>
+
             <th class="sr-only w-8 ml-auto">Aksi</th>
           </tr>
         </thead>
         <tbody>
+          <tr v-if="data?.data?.borrow.length === 0">
+            <td colspan="100%" class="text-center text-sm py-4">No Data.</td>
+          </tr>
           <tr
-            v-if="!isLoading && data?.data?.book?.length > 0"
+            v-if="!isLoading && data?.data?.borrow?.length > 0"
             class="border-b"
-            v-for="user in data.data.book"
-            :key="user.id"
+            v-for="borrow in data.data.borrow"
+            :key="borrow.id"
           >
             <td class="w-10">
               <input
-                :checked="selected.includes(user.id)"
-                @change="toggleSelect(user.id)"
+                :checked="selected.includes(borrow.id)"
+                @change="toggleSelect(borrow.id)"
                 type="checkbox"
                 class="w-4 h-4 block mx-auto text-blue-600 bg-gray-100 border-blue-600 rounded-sm focus:ring-blue-500"
               />
             </td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.isbn }}</td>
             <td class="px-4 py-2 text-sm truncate">
-              <img
-                :src="user.coverImage"
-                class="w-auto h-8"
-                :alt="user.title"
-              />
+              {{ borrow?.user?.name }}
             </td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.title }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.author }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.stock }}</td>
-            <td class="px-4 py-2 text-sm truncate">{{ user.description }}</td>
+
+            <td class="px-4 py-2 text-sm truncate">
+              {{ borrow?.book?.title }}
+            </td>
+            <td class="px-4 py-2 text-sm truncate">
+              {{ borrow?.status }}
+            </td>
+            <td class="px-4 py-2 text-sm truncate">
+              {{ borrow?.startDate.split("T")[0] }}
+            </td>
+            <td class="px-4 py-2 text-sm truncate">
+              {{ borrow?.endDate.split("T")[0] }}
+            </td>
+
             <td class="px-4 text-sm relative">
               <button
-                :id="user.id"
-                @click="openAction = openAction === user.id ? '' : user.id"
+                :id="borrow?.id || ''"
+                @click="
+                  openAction = openAction === borrow.id ? '' : borrow?.id || ''
+                "
               >
                 <EllipsisVertical class="w-5 h-10 text-gray-500" />
               </button>
               <ActionTable
-                :value="user.id"
+                :value="borrow?.id || '1'"
                 :openAction="openAction"
                 @update="openAction = ''"
               >
-                <RouterLink
-                  :to="`/admin/buku/edit/${user.id}`"
+                <button
+                  @click="handleOpenModalStatus(borrow)"
                   class="px-2 py-1 text-sm truncate w-full"
                 >
-                  Edit
-                </RouterLink>
+                  Edit Status
+                </button>
               </ActionTable>
             </td>
-          </tr>
-          <tr v-if="!isLoading && data?.data?.book?.length === 0">
-            <td colspan="100%" class="text-center text-sm py-4">No Data.</td>
           </tr>
         </tbody>
       </table>
@@ -126,9 +127,15 @@
       :total-page="data?.data?.pagination.totalPage"
     />
   </section>
+  <ModalBorrow
+    @close="openModalStatus = null"
+    :data="openModalStatus || null"
+    :isOpen="!!openModalStatus"
+  />
+
   <ModalDelete
     @confirm="handleDelete"
-    :title="'buku'"
+    :title="'booking'"
     :isOpen="openDelete"
     @close="openDelete = false"
   />
@@ -139,24 +146,35 @@ import { ref } from "vue";
 import { EllipsisVertical, Trash } from "lucide-vue-next";
 import InputSearch from "../../../components/ui/InputSearch.vue";
 import ActionTable from "../../../components/fragments/ActionTable.vue";
-import { RouterLink } from "vue-router";
-import useGetBook from "../../../composables/book/useGetAllBook";
-import type { BookType } from "../../../types/model";
+import { type BookingType, type BookType } from "../../../types/model";
 import ModalDelete from "../../../components/fragments/ModalDelete.vue";
-import useDeleteBook from "../../../composables/book/useDeleteBook";
 import FooterTable from "../../../components/fragments/FooterTable.vue";
+
+import useConfirmBooking from "../../../composables/booking/useConfirmBooking";
+
+import useDeleteBooking from "../../../composables/booking/useDeleteBooking";
+import useGetBorrow from "../../../composables/borrow/useGetBorrow";
+import ModalBorrow from "./ModalBorrow.vue";
 
 const selected = ref<string[]>([]);
 const openDelete = ref(false);
+const openModalStatus = ref<null | BookingType>(null);
+
 const openAction = ref("");
 
-const { data, isLoading } = useGetBook();
-const { mutate } = useDeleteBook();
+const { data, isLoading } = useGetBorrow();
+
+const { mutate } = useDeleteBooking();
+
+const handleOpenModalStatus = (data: BookingType) => {
+  openModalStatus.value = data;
+  openAction.value = "";
+};
 
 const toggleselected = (event: Event) => {
   if ((event.target as HTMLInputElement).checked) {
     selected.value =
-      data.value?.data.book.map((item: BookType) => item.id) || [];
+      data.value?.data?.borrow?.map((item: BookType) => item.id) || [];
   } else {
     selected.value = [];
   }

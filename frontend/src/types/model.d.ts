@@ -18,3 +18,11 @@ export interface BookType {
   stock: number;
   createdAt?: string;
 }
+
+export interface BookingType {
+  id?: string;
+  bookId?: string;
+  userId?: string;
+  status?: string;
+  createdAt?: string;
+}

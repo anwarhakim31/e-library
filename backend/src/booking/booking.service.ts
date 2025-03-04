@@ -60,6 +60,9 @@ export class BookingService {
             { user: { name: { contains: search } } },
           ],
         }),
+        user: {
+          isAdmin: false,
+        },
       },
       include: {
         book: true,

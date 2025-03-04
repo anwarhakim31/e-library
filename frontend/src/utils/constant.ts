@@ -35,6 +35,6 @@ export const sidebarItem = [
     id: 5,
     name: "peminjaman",
     icon: CalendarClock,
-    path: "/admin/peminjaman",
+    path: "/admin/borrowed",
   },
 ];

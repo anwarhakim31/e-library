@@ -10,9 +10,17 @@ import { UserModule } from './user/user.module';
 import { BookingService } from './booking/booking.service';
 import { BookingController } from './booking/booking.controller';
 import { BookingModule } from './booking/booking.module';
+import { BorrowModule } from './borrow/borrow.module';
 
 @Module({
-  imports: [AuthModule, CommonModule, BookModule, UserModule, BookingModule],
+  imports: [
+    AuthModule,
+    CommonModule,
+    BookModule,
+    UserModule,
+    BookingModule,
+    BorrowModule,
+  ],
   controllers: [AppController, AuthController, BookingController],
   providers: [AppService, AuthService, BookingService],
 })

@@ -16,6 +16,7 @@ const useDeleteBooking = () => {
     onSuccess: () => {
       toast.success("Berhasil menghapus booking");
       queryClient.invalidateQueries({ queryKey: ["pendingbooking"] });
+      queryClient.invalidateQueries({ queryKey: ["borrow"] });
     },
     onError: (error) => {
       ResponseError(error);

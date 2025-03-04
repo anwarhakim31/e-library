@@ -10,7 +10,7 @@
         class="flex items-center justify-center shadow-sm w-8 h-8 rounded-full border"
       >
         <AlignCenter
-          class="w-5 h-5 block lg:hidden stroke-[1.5] pointer-events-none"
+          class="w-4 h-4 block lg:hidden stroke-[1.5] pointer-events-none"
         />
         <ChevronsRight
           v-if="isOpen"
