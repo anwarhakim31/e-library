@@ -13,10 +13,10 @@ import {
 } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/createBookingDto';
-import { User } from 'src/decorators/user.decorator';
-import { AuthGuard } from 'src/guard/authGuard';
-import { UserType } from 'src/types/user-type';
-import { AdminGuard } from 'src/guard/adminGuard';
+import { User } from '../decorators/user.decorator';
+import { AuthGuard } from '../guard/authGuard';
+import { UserType } from '../types/user-type';
+import { AdminGuard } from '../guard/adminGuard';
 
 @Controller('/api/booking')
 export class BookingController {

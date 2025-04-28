@@ -11,7 +11,8 @@
       <option value="semua">Semua</option>
       <option value="menunggu">Menunggu</option>
       <option value="konfirmasi">Di Konfirmasi</option>
-      <option value="pinjam">Dipinjam</option>
+      <option value="dipinjam">Dipinjam</option>
+      <option value="dikembalikan">dikembalikan</option>
     </select>
   </div>
   <div
@@ -21,7 +22,8 @@
     <Book class="w-7 h-7 text-gray-700 mb-4" />
     <h3 class="text-base font-medium">Belum Ada Buku yang Dipinjam</h3>
     <p class="text-xs mt-2 text-gray-500">
-      Anda belum meminjam buku apapun. Mulai jelajahi koleksi perpustakaan kami sekarang!
+      Anda belum meminjam buku apapun. Mulai jelajahi koleksi perpustakaan kami
+      sekarang!
     </p>
   </div>
   <div v-else class="min-h-[calc(100vh-280px)] space-y-4 mt-12">
@@ -31,7 +33,11 @@
       class="flex flex-col gap-2 md:flex-row justify-between"
     >
       <div class="flex gap-2">
-        <img :src="item?.book?.coverImage" :alt="item?.book?.title" class="w-16 h-24" />
+        <img
+          :src="item?.book?.coverImage"
+          :alt="item?.book?.title"
+          class="w-16 h-24"
+        />
         <div>
           <h3 class="text-sm font-medium">{{ item?.book?.title }}</h3>
           <p class="text-xs">({{ item?.book?.author }})</p>

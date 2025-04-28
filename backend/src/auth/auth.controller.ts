@@ -3,8 +3,8 @@ import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDTO } from './dto/register-dto';
 import { Response } from 'express';
-import { User } from 'src/decorators/user.decorator';
-import { AuthGuard } from 'src/guard/authGuard';
+import { User } from '../decorators/user.decorator';
+import { AuthGuard } from '../guard/authGuard';
 import { LoginDTO } from './dto/login-dto';
 
 @Controller('/api/auth')
@@ -21,7 +21,7 @@ export class AuthController {
     if (result) {
       const token = this.JwtService.sign(result, { expiresIn: '1d' });
       response.cookie('access_token', token, {
-        maxAge: 1 * 60 * 60 * 1000,
+        maxAge: 8 * 60 * 60 * 1000,
         secure: true,
         sameSite: 'none',
       });
@@ -40,7 +40,7 @@ export class AuthController {
     if (result) {
       const token = this.JwtService.sign(result, { expiresIn: '1d' });
       response.cookie('access_token', token, {
-        maxAge: 1 * 60 * 60 * 1000,
+        maxAge: 8 * 60 * 60 * 1000,
         secure: true,
         sameSite: 'none',
       });

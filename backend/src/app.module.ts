@@ -11,6 +11,9 @@ import { BookingService } from './booking/booking.service';
 import { BookingController } from './booking/booking.controller';
 import { BookingModule } from './booking/booking.module';
 import { BorrowModule } from './borrow/borrow.module';
+import { DashboardController } from './dashboard/dashboard.controller';
+import { DashboardService } from './dashboard/dashboard.service';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -20,8 +23,9 @@ import { BorrowModule } from './borrow/borrow.module';
     UserModule,
     BookingModule,
     BorrowModule,
+    DashboardModule,
   ],
-  controllers: [AppController, AuthController, BookingController],
-  providers: [AppService, AuthService, BookingService],
+  controllers: [AppController, AuthController, BookingController, DashboardController],
+  providers: [AppService, AuthService, BookingService, DashboardService],
 })
 export class AppModule {}

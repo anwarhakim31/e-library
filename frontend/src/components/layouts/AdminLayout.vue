@@ -22,32 +22,36 @@
         />
       </button>
 
-      <RouterLink
-        v-if="user && !loading"
-        to="/profile"
-        class="ml-auto flex items-center gap-2"
-      >
-        <div>
-          <p class="text-xs font-medium text-gray-700">Administrator</p>
-          <p class="text-xs w-[80px] truncate text-gray-500">
-            {{ user.name }}
-          </p>
-        </div>
-        <img
-          v-if="user.photo"
-          class="w-8 h-8 p-1 rounded-full ring-2"
-          src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-          alt="Bordered avatar"
-        />
-        <div
-          v-else
-          class="w-8 h-8 p-1 flex items-center justify-center rounded-full bg-blue-600"
+      <div class="flex items-center gap-2">
+        <button v-if="user && !loading" class="ml-auto flex items-center gap-2">
+          <div>
+            <p class="text-xs font-medium text-gray-700">Administrator</p>
+            <p class="text-xs w-[80px] text-left truncate text-gray-500 block">
+              {{ user.name }}
+            </p>
+          </div>
+          <img
+            v-if="user.photo"
+            class="w-8 h-8 p-1 rounded-full ring-2"
+            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+            alt="Bordered avatar"
+          />
+          <div
+            v-else
+            class="w-8 h-8 p-1 flex items-center justify-center rounded-full bg-blue-600"
+          >
+            <span class="text-sm uppercase text-white">
+              {{ ProfileName(user?.name || "") }}
+            </span>
+          </div>
+        </button>
+        <button
+          class="flex items-center justify-center shadow-sm w-8 h-8 rounded-full border"
+          @click="handleLogout"
         >
-          <span class="text-sm uppercase text-white">
-            {{ ProfileName(user?.name || "") }}
-          </span>
-        </div>
-      </RouterLink>
+          <LogOut class="w-4 h-4 stroke-[1.5] pointer-events-none" />
+        </button>
+      </div>
     </header>
     <aside
       id="sidebar"
@@ -108,7 +112,7 @@
       </button>
     </aside>
     <section
-      class="w-full min-h-screen pt-24 pr-4 pb-10 lg:pr-8 transition-[width] duration-300 ease-in-out"
+      class="relative w-full min-h-screen pt-24 pr-4 pb-10 lg:pr-8 transition-[width] duration-300 ease-in-out"
       :class="isOpen ? 'pl-4 lg:pl-[8.5rem] ' : 'pl-4 lg:pl-64'"
     >
       <RouterView />
@@ -123,11 +127,20 @@ import { useAuthStore } from "../../stores/auth";
 import { storeToRefs } from "pinia";
 
 import { sidebarItem } from "../../utils/constant";
-import { AlignCenter, ChevronsLeft, ChevronsRight, X } from "lucide-vue-next";
+import {
+  AlignCenter,
+  ChevronsLeft,
+  ChevronsRight,
+  LogOut,
+  X,
+} from "lucide-vue-next";
 import { onMounted, onUnmounted, ref } from "vue";
+import useLogout from "../../composables/auth/useLogout";
 const route = useRoute();
 const isHover = ref("");
 const isOpen = ref(false);
+const autHStore = useAuthStore();
+const { user, loading } = storeToRefs(autHStore);
 
 const closeSidebar = (event: MouseEvent) => {
   const sidebar = document.getElementById("sidebar");
@@ -147,12 +160,15 @@ onMounted(() => {
   document.addEventListener("click", closeSidebar);
 });
 
+const { mutate } = useLogout();
+
+const handleLogout = () => {
+  mutate();
+};
+
 onUnmounted(() => {
   document.removeEventListener("click", closeSidebar);
 });
-
-const autHStore = useAuthStore();
-const { user, loading } = storeToRefs(autHStore);
 </script>
 
 <style></style>
